@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Fashion Influencer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+            --darker-bg: #05010f;
+            --text-light: #f8f8f8;
+            --text-dim: #a5a5a5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', 'Arial Narrow', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Rajdhani';
+            src: url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 2rem;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--neon-pink);
+        }
+
+        .admin-section {
+            background-color: var(--darker-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--text-dim);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 42, 109, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            margin-right: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(5, 217, 232, 0.1);
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 1rem;
+            border-radius: 5px;
+            border: 2px solid var(--neon-blue);
+            display: block;
+        }
+
+        .social-link-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .social-link-item select {
+            flex: 1;
+        }
+
+        .social-link-item input {
+            flex: 3;
+        }
+
+        .add-social-link {
+            background: transparent;
+            border: 2px dashed var(--text-dim);
+            color: var(--text-dim);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .add-social-link:hover {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .portfolio-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--text-dim);
+        }
+
+        .portfolio-item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-item-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff2a6d, #d300c5);
+        }
+
+        .messages-list {
+            margin-top: 2rem;
+        }
+
+        .message-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--neon-blue);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+        }
+
+        .message-date {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .back-to-site {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-site:hover {
+            color: var(--neon-pink);
+            text-decoration: underline;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--text-dim);
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-link-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="index.html" class="back-to-site"><i class="fas fa-arrow-left"></i> Back to Website</a>
+        
+        <h1>Admin Panel</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="profile">Profile</div>
+            <div class="tab" data-tab="portfolio">Portfolio</div>
+            <div class="tab" data-tab="messages">Messages</div>
+        </div>
+        
+        <!-- Profile Tab -->
+        <div class="tab-content active" id="profile-tab">
+            <div class="admin-section">
+                <h2>Profile Information</h2>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="name">Influencer Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="title">Title/Headline</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">Bio/Description</label>
+                        <textarea id="bio" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-image">Profile Image URL</label>
+                        <input type="text" id="profile-image" required>
+                        <img src="" alt="Profile Preview" class="preview-image" id="profile-image-preview">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="portfolio-description">Portfolio Section Description</label>
+                        <textarea id="portfolio-description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-description">Contact Section Description</label>
+                        <textarea id="contact-description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="footer-text">Footer Text</label>
+                        <input type="text" id="footer-text" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Save Profile</button>
+                </form>
+            </div>
+            
+            <div class="admin-section">
+                <h2>Social Media Links</h2>
+                <form id="social-links-form">
+                    <div id="social-links-container">
+                        <!-- Social links will be added here -->
+                    </div>
+                    
+                    <button type="button" class="add-social-link" id="add-social-link">
+                        <i class="fas fa-plus"></i> Add Social Link
+                    </button>
+                    
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn">Save Social Links</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Portfolio Tab -->
+        <div class="tab-content" id="portfolio-tab">
+            <div class="admin-section">
+                <h2>Add New Portfolio Item</h2>
+                <form id="add-portfolio-form">
+                    <div class="form-group">
+                        <label for="portfolio-image">Image URL</label>
+                        <input type="text" id="portfolio-image" required>
+                        <img src="" alt="Portfolio Preview" class="preview-image" id="portfolio-image-preview">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="portfolio-title">Title</label>
+                        <input type="text" id="portfolio-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="portfolio-category">Category</label>
+                        <input type="text" id="portfolio-category" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Add Portfolio Item</button>
+                </form>
+            </div>
+            
+            <div class="admin-section">
+                <h2>Your Portfolio Items</h2>
+                <div class="portfolio-items" id="portfolio-items-container">
+                    <!-- Portfolio items will be loaded here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Messages Tab -->
+        <div class="tab-content" id="messages-tab">
+            <div class="admin-section">
+                <h2>Contact Messages</h2>
+                <div class="messages-list" id="messages-container">
+                    <!-- Messages will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Load profile data
+            loadProfileData();
+            
+            // Load portfolio items
+            loadPortfolioItems();
+            
+            // Load messages
+            loadMessages();
+            
+            // Profile form submission
+            const profileForm = document.getElementById('profile-form');
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const profileData = {
+                    name: document.getElementById('name').value,
+                    title: document.getElementById('title').value,
+                    bio: document.getElementById('bio').value,
+                    profileImage: document.getElementById('profile-image').value,
+                    portfolioDescription: document.getElementById('portfolio-description').value,
+                    contactDescription: document.getElementById('contact-description').value,
+                    footerText: document.getElementById('footer-text').value
+                };
+                
+                localStorage.setItem('profileData', JSON.stringify(profileData));
+                alert('Profile saved successfully!');
+            });
+            
+            // Social links form submission
+            const socialLinksForm = document.getElementById('social-links-form');
+            socialLinksForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const socialLinks = [];
+                const linkItems = document.querySelectorAll('.social-link-item');
+                
+                linkItems.forEach(item => {
+                    const icon = item.querySelector('select').value;
+                    const url = item.querySelector('input[type="text"]').value;
+                    
+                    if (icon && url) {
+                        socialLinks.push({ icon, url });
+                    }
+                });
+                
+                // Get existing profile data
+                const profileData = JSON.parse(localStorage.getItem('profileData')) || {};
+                profileData.socialLinks = socialLinks;
+                localStorage.setItem('profileData', JSON.stringify(profileData));
+                
+                alert('Social links saved successfully!');
+            });
+            
+            // Add social link button
+            const addSocialLinkBtn = document.getElementById('add-social-link');
+            addSocialLinkBtn.addEventListener('click', function() {
+                addSocialLinkField();
+            });
+            
+            // Portfolio form submission
+            const portfolioForm = document.getElementById('add-portfolio-form');
+            portfolioForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const portfolioItem = {
+                    imageUrl: document.getElementById('portfolio-image').value,
+                    title: document.getElementById('portfolio-title').value,
+                    category: document.getElementById('portfolio-category').value
+                };
+                
+                const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems')) || [];
+                portfolioItems.push(portfolioItem);
+                localStorage.setItem('portfolioItems', JSON.stringify(portfolioItems));
+                
+                // Reset form
+                portfolioForm.reset();
+                document.getElementById('portfolio-image-preview').src = '';
+                
+                // Reload portfolio items
+                loadPortfolioItems();
+                
+                alert('Portfolio item added successfully!');
+            });
+            
+            // Preview image when URL changes
+            document.getElementById('profile-image').addEventListener('input', function() {
+                document.getElementById('profile-image-preview').src = this.value;
+            });
+            
+            document.getElementById('portfolio-image').addEventListener('input', function() {
+                document.getElementById('portfolio-image-preview').src = this.value;
+            });
+        });
+        
+        function loadProfileData() {
+            const profileData = JSON.parse(localStorage.getItem('profileData'));
+            
+            if (profileData) {
+                document.getElementById('name').value = profileData.name || '';
+                document.getElementById('title').value = profileData.title || '';
+                document.getElementById('bio').value = profileData.bio || '';
+                document.getElementById('profile-image').value = profileData.profileImage || '';
+                document.getElementById('profile-image-preview').src = profileData.profileImage || '';
+                document.getElementById('portfolio-description').value = profileData.portfolioDescription || '';
+                document.getElementById('contact-description').value = profileData.contactDescription || '';
+                document.getElementById('footer-text').value = profileData.footerText || '';
+                
+                // Load social links if they exist
+                const socialLinksContainer = document.getElementById('social-links-container');
+                socialLinksContainer.innerHTML = '';
+                
+                if (profileData.socialLinks && profileData.socialLinks.length > 0) {
+                    profileData.socialLinks.forEach(link => {
+                        addSocialLinkField(link.icon, link.url);
+                    });
+                } else {
+                    // Add one empty field by default
+                    addSocialLinkField();
+                }
+            } else {
+                // Initialize with empty fields
+                addSocialLinkField();
+            }
+        }
+        
+        function addSocialLinkField(icon = '', url = '') {
+            const socialLinksContainer = document.getElementById('social-links-container');
+            const socialLinkItem = document.createElement('div');
+            socialLinkItem.className = 'social-link-item';
+            
+            const socialIcons = [
+                'instagram', 'tiktok', 'youtube', 'pinterest', 
+                'twitter', 'facebook', 'snapchat', 'twitch',
+                'linkedin', 'reddit', 'tumblr', 'whatsapp'
+            ];
+            
+            socialLinkItem.innerHTML = `
+                <select required>
+                    <option value="">Select Platform</option>
+                    ${socialIcons.map(iconName => 
+                        `<option value="${iconName}" ${icon === iconName ? 'selected' : ''}>
+                            ${iconName.charAt(0).toUpperCase() + iconName.slice(1)}
+                        </option>`
+                    ).join('')}
+                </select>
+                <input type="text" placeholder="Profile URL" value="${url}" required>
+                <button type="button" class="btn btn-sm btn-danger remove-social-link">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            socialLinksContainer.appendChild(socialLinkItem);
+            
+            // Add event listener to remove button
+            socialLinkItem.querySelector('.remove-social-link').addEventListener('click', function() {
+                if (document.querySelectorAll('.social-link-item').length > 1) {
+                    socialLinkItem.remove();
+                } else {
+                    alert('You need at least one social link.');
+                }
+            });
+        }
+        
+        function loadPortfolioItems() {
+            const portfolioItemsContainer = document.getElementById('portfolio-items-container');
+            const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems')) || [];
+            
+            portfolioItemsContainer.innerHTML = '';
+            
+            if (portfolioItems.length === 0) {
+                portfolioItemsContainer.innerHTML = '<p>No portfolio items yet. Add your first item above.</p>';
+                return;
+            }
+            
+            portfolioItems.forEach((item, index) => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item-card';
+                portfolioItem.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.title}" class="portfolio-item-image">
+                    <h3>${item.title}</h3>
+                    <p>${item.category}</p>
+                    <div class="portfolio-item-actions">
+                        <button type="button" class="btn btn-sm btn-secondary edit-portfolio-item" data-index="${index}">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger delete-portfolio-item" data-index="${index}">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                
+                portfolioItemsContainer.appendChild(portfolioItem);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-portfolio-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    deletePortfolioItem(index);
+                });
+            });
+            
+            // Add event listeners to edit buttons
+            document.querySelectorAll('.edit-portfolio-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    editPortfolioItem(index);
+                });
+            });
+        }
+        
+        function deletePortfolioItem(index) {
+            if (confirm('Are you sure you want to delete this portfolio item?')) {
+                const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems')) || [];
+                portfolioItems.splice(index, 1);
+                localStorage.setItem('portfolioItems', JSON.stringify(portfolioItems));
+                loadPortfolioItems();
+            }
+        }
+        
+        function editPortfolioItem(index) {
+            const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems')) || [];
+            const item = portfolioItems[index];
+            
+            // Fill the add form with the item's data
+            document.getElementById('portfolio-image').value = item.imageUrl;
+            document.getElementById('portfolio-image-preview').src = item.imageUrl;
+            document.getElementById('portfolio-title').value = item.title;
+            document.getElementById('portfolio-category').value = item.category;
+            
+            // Remove the item from the array
+            portfolioItems.splice(index, 1);
+            localStorage.setItem('portfolioItems', JSON.stringify(portfolioItems));
+            
+            // Reload the portfolio items
+            loadPortfolioItems();
+            
+            // Scroll to the form
+            document.getElementById('portfolio-image').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function loadMessages() {
+            const messagesContainer = document.getElementById('messages-container');
+            const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+            
+            messagesContainer.innerHTML = '';
+            
+            if (messages.length === 0) {
+                messagesContainer.innerHTML = '<p>No messages yet.</p>';
+                return;
+            }
+            
+            // Show messages in reverse chronological order
+            messages.reverse().forEach(message => {
+                const messageCard = document.createElement('div');
+                messageCard.className = 'message-card';
+                messageCard.innerHTML = `
+                    <div class="message-header">
+                        <strong>${message.name} &lt;${message.email}&gt;</strong>
+                        <span class="message-date">${new Date(message.date).toLocaleString()}</span>
+                    </div>
+                    <h3>${message.subject}</h3>
+                    <p>${message.message}</p>
+                `;
+                
+                messagesContainer.appendChild(messageCard);
+            });
+        }
+    </script>
+</body>
+</html>
