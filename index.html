@@ -554,6 +554,27 @@
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
+        /* Admin link */
+        .admin-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--neon-purple);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px rgba(211, 0, 197, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .admin-link:hover {
+            background: var(--neon-pink);
+            transform: translateY(-2px);
+        }
+
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .main-container {
@@ -606,10 +627,20 @@
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
+
+            .admin-link {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Admin access link -->
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+
     <!-- Particle background -->
     <div class="particles" id="particles"></div>
 
@@ -617,15 +648,15 @@
     <div class="main-container">
         <!-- Content side -->
         <div class="content-side">
-            <h1 class="title glitch" data-text="NOVA">NOVA</h1>
-            <h2 class="subtitle">FASHION ALCHEMIST</h2>
-            <p class="bio">
+            <h1 class="title glitch" data-text="NOVA" id="influencer-name">NOVA</h1>
+            <h2 class="subtitle" id="influencer-title">FASHION ALCHEMIST</h2>
+            <p class="bio" id="influencer-bio">
                 Transforming the ordinary into extraordinary through avant-garde fashion. 
                 I blend streetwear with high fashion to create bold statements that 
                 challenge conventional style norms.
             </p>
             
-            <div class="social-links">
+            <div class="social-links" id="social-links">
                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
@@ -639,7 +670,7 @@
         <div class="visual-side">
             <!-- Floating avatar -->
             <div class="avatar-container">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="NOVA" class="avatar">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="NOVA" class="avatar" id="profile-image">
             </div>
             
             <!-- Floating fashion items -->
@@ -653,82 +684,36 @@
     <!-- Portfolio section -->
     <section class="portfolio-section" id="portfolio">
         <h2 class="section-title">PORTFOLIO</h2>
-        <p class="bio">A curated selection of my most transformative fashion projects and collaborations.</p>
+        <p class="bio" id="portfolio-description">A curated selection of my most transformative fashion projects and collaborations.</p>
         
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80" alt="Project 1" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Neon Dreams</h3>
-                    <p class="portfolio-category">Editorial</p>
-                </div>
-            </div>
-            
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Project 2" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Urban Elegance</h3>
-                    <p class="portfolio-category">Streetwear</p>
-                </div>
-            </div>
-            
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=972&q=80" alt="Project 3" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Metallic Fusion</h3>
-                    <p class="portfolio-category">Experimental</p>
-                </div>
-            </div>
-            
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Project 4" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Cyberpunk Revival</h3>
-                    <p class="portfolio-category">Futuristic</p>
-                </div>
-            </div>
-            
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Project 5" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Monochromatic Waves</h3>
-                    <p class="portfolio-category">Minimalist</p>
-                </div>
-            </div>
-            
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Project 6" class="portfolio-img">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Textured Layers</h3>
-                    <p class="portfolio-category">Avant-Garde</p>
-                </div>
-            </div>
+        <div class="portfolio-grid" id="portfolio-grid">
+            <!-- Portfolio items will be loaded from localStorage -->
         </div>
     </section>
     
     <!-- Contact section -->
     <section class="contact-section" id="contact">
         <h2 class="section-title">COLLABORATE</h2>
-        <p class="bio">Ready to create something extraordinary together? Let's connect.</p>
+        <p class="bio" id="contact-description">Ready to create something extraordinary together? Let's connect.</p>
         
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
             <div class="form-group">
-                <input type="text" class="form-input" id="name" placeholder=" ">
+                <input type="text" class="form-input" id="name" placeholder=" " required>
                 <label for="name" class="form-label">Your Name</label>
             </div>
             
             <div class="form-group">
-                <input type="email" class="form-input" id="email" placeholder=" ">
+                <input type="email" class="form-input" id="email" placeholder=" " required>
                 <label for="email" class="form-label">Email</label>
             </div>
             
             <div class="form-group">
-                <input type="text" class="form-input" id="subject" placeholder=" ">
+                <input type="text" class="form-input" id="subject" placeholder=" " required>
                 <label for="subject" class="form-label">Subject</label>
             </div>
             
             <div class="form-group">
-                <textarea class="form-input" id="message" placeholder=" " rows="4"></textarea>
+                <textarea class="form-input" id="message" placeholder=" " rows="4" required></textarea>
                 <label for="message" class="form-label">Message</label>
             </div>
             
@@ -738,7 +723,7 @@
     
     <!-- Footer -->
     <footer class="footer">
-        <p class="footer-text">© 2023 NOVA FASHION ALCHEMIST. ALL RIGHTS RESERVED.</p>
+        <p class="footer-text" id="footer-text">© 2023 NOVA FASHION ALCHEMIST. ALL RIGHTS RESERVED.</p>
     </footer>
     
     <!-- Circular navigation -->
@@ -761,76 +746,203 @@
     </div>
     
     <script>
-        // Circular navigation toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const circularNav = document.querySelector('.circular-nav');
-        
-        navToggle.addEventListener('click', () => {
-            circularNav.classList.toggle('active');
+        // Load all data from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfileData();
+            loadPortfolioItems();
+            
+            // Circular navigation toggle
+            const navToggle = document.querySelector('.nav-toggle');
+            const circularNav = document.querySelector('.circular-nav');
+            
+            navToggle.addEventListener('click', () => {
+                circularNav.classList.toggle('active');
+            });
+            
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 5px
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                // Random color variation
+                const hue = Math.random() * 60 + 180; // Blue to cyan range
+                particle.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Glitch effect on hover for title
+            const glitchTitle = document.querySelector('.glitch');
+            
+            glitchTitle.addEventListener('mouseenter', () => {
+                glitchTitle.classList.add('active');
+            });
+            
+            glitchTitle.addEventListener('mouseleave', () => {
+                glitchTitle.classList.remove('active');
+            });
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close circular nav if open
+                        if (circularNav.classList.contains('active')) {
+                            circularNav.classList.remove('active');
+                        }
+                    }
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value,
+                        date: new Date().toISOString()
+                    };
+                    
+                    // Save to localStorage
+                    let messages = JSON.parse(localStorage.getItem('contactMessages') || [];
+                    messages.push(formData);
+                    localStorage.setItem('contactMessages', JSON.stringify(messages));
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Show success message
+                    alert('Your message has been sent successfully!');
+                });
+            }
         });
         
-        // Create particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        function loadProfileData() {
+            const profileData = JSON.parse(localStorage.getItem('profileData'));
             
-            // Random size between 2px and 5px
-            const size = Math.random() * 3 + 2;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            // Random position
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.bottom = `-${size}px`;
-            
-            // Random animation duration and delay
-            const duration = Math.random() * 20 + 10;
-            const delay = Math.random() * 10;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `${delay}s`;
-            
-            // Random color variation
-            const hue = Math.random() * 60 + 180; // Blue to cyan range
-            particle.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
-            
-            particlesContainer.appendChild(particle);
+            if (profileData) {
+                document.getElementById('influencer-name').textContent = profileData.name || 'NOVA';
+                document.getElementById('influencer-title').textContent = profileData.title || 'FASHION ALCHEMIST';
+                document.getElementById('influencer-bio').textContent = profileData.bio || 'Transforming the ordinary into extraordinary through avant-garde fashion.';
+                document.getElementById('profile-image').src = profileData.profileImage || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80';
+                document.getElementById('portfolio-description').textContent = profileData.portfolioDescription || 'A curated selection of my most transformative fashion projects and collaborations.';
+                document.getElementById('contact-description').textContent = profileData.contactDescription || 'Ready to create something extraordinary together? Let\'s connect.';
+                document.getElementById('footer-text').textContent = profileData.footerText || `© ${new Date().getFullYear()} NOVA FASHION ALCHEMIST. ALL RIGHTS RESERVED.`;
+                
+                // Update social links if they exist
+                if (profileData.socialLinks) {
+                    const socialLinksContainer = document.getElementById('social-links');
+                    socialLinksContainer.innerHTML = '';
+                    
+                    profileData.socialLinks.forEach(link => {
+                        if (link.url && link.icon) {
+                            const socialLink = document.createElement('a');
+                            socialLink.href = link.url;
+                            socialLink.className = 'social-link';
+                            socialLink.target = '_blank';
+                            socialLink.innerHTML = `<i class="fab fa-${link.icon}"></i>`;
+                            socialLinksContainer.appendChild(socialLink);
+                        }
+                    });
+                }
+            }
         }
         
-        // Glitch effect on hover for title
-        const glitchTitle = document.querySelector('.glitch');
-        
-        glitchTitle.addEventListener('mouseenter', () => {
-            glitchTitle.classList.add('active');
-        });
-        
-        glitchTitle.addEventListener('mouseleave', () => {
-            glitchTitle.classList.remove('active');
-        });
-        
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close circular nav if open
-                    if (circularNav.classList.contains('active')) {
-                        circularNav.classList.remove('active');
+        function loadPortfolioItems() {
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems')) || [];
+            
+            // If no items in storage, load default items
+            if (portfolioItems.length === 0) {
+                const defaultItems = [
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80',
+                        title: 'Neon Dreams',
+                        category: 'Editorial'
+                    },
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+                        title: 'Urban Elegance',
+                        category: 'Streetwear'
+                    },
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=972&q=80',
+                        title: 'Metallic Fusion',
+                        category: 'Experimental'
+                    },
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+                        title: 'Cyberpunk Revival',
+                        category: 'Futuristic'
+                    },
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+                        title: 'Monochromatic Waves',
+                        category: 'Minimalist'
+                    },
+                    {
+                        imageUrl: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+                        title: 'Textured Layers',
+                        category: 'Avant-Garde'
                     }
-                }
+                ];
+                
+                localStorage.setItem('portfolioItems', JSON.stringify(defaultItems));
+                loadPortfolioItems(); // Recursively call to load the default items
+                return;
+            }
+            
+            // Clear existing items
+            portfolioGrid.innerHTML = '';
+            
+            // Add each portfolio item
+            portfolioItems.forEach(item => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item';
+                portfolioItem.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.title}" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">${item.title}</h3>
+                        <p class="portfolio-category">${item.category}</p>
+                    </div>
+                `;
+                portfolioGrid.appendChild(portfolioItem);
             });
-        });
+        }
     </script>
 </body>
 </html>
